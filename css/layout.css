@@ -263,6 +263,37 @@
   height: auto;
 }
 
+.menu__offer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-40);
+  margin-bottom: var(--space-40);
+}
+
+.menu__title {
+  max-width: 800px;
+  font: var(--heading-2);
+  text-align: center;
+}
+
+.menu__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-16);
+}
+
+.menu__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-40);
+}
+
+.menu__more {
+  display: none;
+}
+
 @media (max-width: 1024px) {
   .footer__inner {
     flex-direction: column;
