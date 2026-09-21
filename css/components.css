@@ -241,14 +241,30 @@
     background-color var(--transition);
 }
 
-.theme-switch__input:not(:checked) ~ .theme-switch__option--light,
-.theme-switch__input:checked ~ .theme-switch__option--dark {
+.theme-switch__option--light {
   color: var(--text-inverse);
   background-color: var(--text-accent);
 }
 
-.theme-switch:hover .theme-switch__input:not(:checked) ~ .theme-switch__option--dark,
-.theme-switch:hover .theme-switch__input:checked ~ .theme-switch__option--light {
+.theme-switch:hover .theme-switch__option--dark {
+  color: var(--text-inverse);
+  background-color: var(--background-container);
+}
+
+:root[data-theme="dark"] .theme-switch__option--light,
+:root:has(#theme-toggle:checked) .theme-switch__option--light {
+  color: var(--text-primary);
+  background-color: transparent;
+}
+
+:root[data-theme="dark"] .theme-switch__option--dark,
+:root:has(#theme-toggle:checked) .theme-switch__option--dark {
+  color: var(--text-inverse);
+  background-color: var(--text-accent);
+}
+
+:root[data-theme="dark"] .theme-switch:hover .theme-switch__option--light,
+:root:has(#theme-toggle:checked) .theme-switch:hover .theme-switch__option--light {
   color: var(--text-inverse);
   background-color: var(--background-container);
 }

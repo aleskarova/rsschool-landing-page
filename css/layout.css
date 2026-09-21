@@ -16,10 +16,12 @@
 }
 
 .logo__image--dark,
+:root[data-theme="dark"] .logo__image--light,
 :root:has(#theme-toggle:checked) .logo__image--light {
   display: none;
 }
 
+:root[data-theme="dark"] .logo__image--dark,
 :root:has(#theme-toggle:checked) .logo__image--dark {
   display: block;
 }

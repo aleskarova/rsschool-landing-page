@@ -61,6 +61,7 @@
 }
 
 /* Dark theme */
+:root[data-theme="dark"],
 :root:has(#theme-toggle:checked) {
   --text-primary: #e1d4c9;
   --text-inverse: #e1d4c9;
