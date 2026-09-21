@@ -286,7 +286,7 @@
 
 .menu__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--space-40);
 }
 
@@ -334,6 +334,20 @@
   .about__photo--extra {
     display: none;
   }
+
+  .menu__grid {
+    grid-template-columns: repeat(auto-fill, 310px);
+    justify-content: center;
+  }
+
+  .menu__item:nth-child(n + 5) {
+    display: none;
+  }
+
+  .menu__more {
+    display: flex;
+    margin: var(--space-40) auto 0;
+  }
 }
 
 @media (max-width: 600px) {
@@ -364,5 +378,9 @@
 
   .mobile-app__buttons {
     flex-direction: column;
+  }
+
+  .menu__tabs {
+    gap: var(--space-8);
   }
 }
