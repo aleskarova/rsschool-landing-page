@@ -5,6 +5,70 @@
   flex-shrink: 0;
   width: var(--icon-size);
   height: var(--icon-size);
+  background-color: currentColor;
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+.icon--app-store {
+  mask-image: url("../assets/icons/app-store.svg");
+}
+
+.icon--arrow-left {
+  mask-image: url("../assets/icons/arrow-left.svg");
+}
+
+.icon--arrow-right {
+  mask-image: url("../assets/icons/arrow-right.svg");
+}
+
+.icon--burger {
+  mask-image: url("../assets/icons/burger.svg");
+}
+
+.icon--clock {
+  mask-image: url("../assets/icons/clock.svg");
+}
+
+.icon--coffee-cup {
+  mask-image: url("../assets/icons/coffee-cup.svg");
+}
+
+.icon--facebook {
+  mask-image: url("../assets/icons/facebook.svg");
+}
+
+.icon--google-play {
+  mask-image: url("../assets/icons/google-play.svg");
+}
+
+.icon--instagram {
+  mask-image: url("../assets/icons/instagram.svg");
+}
+
+.icon--moon {
+  mask-image: url("../assets/icons/moon.svg");
+}
+
+.icon--phone {
+  mask-image: url("../assets/icons/phone.svg");
+}
+
+.icon--pin {
+  mask-image: url("../assets/icons/pin.svg");
+}
+
+.icon--refresh {
+  mask-image: url("../assets/icons/refresh.svg");
+}
+
+.icon--sun {
+  mask-image: url("../assets/icons/sun.svg");
+}
+
+.icon--twitter {
+  mask-image: url("../assets/icons/twitter.svg");
 }
 
 .icon--coffee-cup,
