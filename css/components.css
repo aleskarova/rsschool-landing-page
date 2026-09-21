@@ -311,7 +311,7 @@
 }
 
 .slider-control--active {
-  background-color: var(--background-container);
+  background-color: var(--border-inverse);
 }
 
 .card {
