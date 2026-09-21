@@ -1,33 +1,31 @@
 .icon {
   --icon-size: var(--icon-size-medium);
 
-  display: inline-block;
+  display: block;
   flex-shrink: 0;
   width: var(--icon-size);
   height: var(--icon-size);
-  background-color: currentColor;
-  mask: var(--icon-url) center / contain no-repeat;
 }
 
-.icon--arrow-left { --icon-url: url("../assets/icons/arrow-left.svg"); }
-.icon--arrow-right { --icon-url: url("../assets/icons/arrow-right.svg"); }
-.icon--refresh { --icon-url: url("../assets/icons/refresh.svg"); }
-.icon--burger { --icon-url: url("../assets/icons/burger.svg"); }
-.icon--close { --icon-url: url("../assets/icons/close.svg"); }
-.icon--twitter { --icon-url: url("../assets/icons/twitter.svg"); }
-.icon--instagram { --icon-url: url("../assets/icons/instagram.svg"); }
-.icon--facebook { --icon-url: url("../assets/icons/facebook.svg"); }
+.icon--coffee-cup,
+.icon--pin,
+.icon--phone,
+.icon--clock {
+  --icon-size: var(--icon-size-small);
+}
 
-.icon--coffee-cup { --icon-url: url("../assets/icons/coffee-cup.svg"); --icon-size: var(--icon-size-small); }
-.icon--pin { --icon-url: url("../assets/icons/pin.svg"); --icon-size: var(--icon-size-small); }
-.icon--phone { --icon-url: url("../assets/icons/phone.svg"); --icon-size: var(--icon-size-small); }
-.icon--clock { --icon-url: url("../assets/icons/clock.svg"); --icon-size: var(--icon-size-small); }
+.icon--app-store {
+  --icon-size: 32px;
+}
 
-.icon--app-store { --icon-url: url("../assets/icons/app-store.svg"); --icon-size: 32px; }
-.icon--google-play { --icon-url: url("../assets/icons/google-play.svg"); --icon-size: 28px; }
+.icon--google-play {
+  --icon-size: 28px;
+}
 
-.icon--sun { --icon-url: url("../assets/icons/sun.svg"); --icon-size: var(--icon-size-large); }
-.icon--moon { --icon-url: url("../assets/icons/moon.svg"); --icon-size: var(--icon-size-large); }
+.icon--sun,
+.icon--moon {
+  --icon-size: var(--icon-size-large);
+}
 
 .link {
   position: relative;
@@ -50,7 +48,8 @@
   transition: transform var(--transition);
 }
 
-.link:hover::after {
+.link:hover::after,
+.link[aria-current="page"]::after {
   transform: scaleX(1);
 }
 
