@@ -115,6 +115,154 @@
   content: none;
 }
 
+.section {
+  padding-top: var(--section-gap);
+}
+
+.section__title {
+  font: var(--heading-2);
+}
+
+.hero__inner {
+  display: flex;
+  align-items: center;
+  padding: var(--space-100);
+  color: var(--text-inverse);
+  background: url("../assets/images/img-hero.png") center / cover no-repeat;
+  border-radius: var(--radius-large);
+}
+
+.hero__offer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-40);
+  max-width: 530px;
+}
+
+.hero__title {
+  font: var(--heading-1);
+}
+
+.favorite-coffee .section__title {
+  margin-bottom: var(--space-40);
+  text-align: center;
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-40);
+}
+
+.slider__viewport {
+  flex: 1;
+  max-width: 1152px;
+  overflow: hidden;
+}
+
+.slider__track {
+  display: flex;
+}
+
+.slide {
+  flex: 0 0 100%;
+}
+
+.slide__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-20);
+  max-width: 480px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.slide__image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.slide__description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.slide__title,
+.slide__price {
+  font: var(--heading-3);
+}
+
+.slider__controls {
+  justify-content: center;
+  margin-top: var(--space-40);
+}
+
+.about__title {
+  margin-bottom: var(--space-40);
+}
+
+@media (min-width: 601px) {
+  .about__title {
+    font-size: 56px;
+  }
+}
+
+.about__gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-40);
+}
+
+.about__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+}
+
+.about__photo--tall {
+  height: 590px;
+}
+
+.about__photo--short {
+  height: 430px;
+}
+
+.mobile-app__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+}
+
+.mobile-app__offer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-40);
+}
+
+.mobile-app__title-line {
+  display: block;
+}
+
+.mobile-app__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-20);
+}
+
+.mobile-app__image {
+  flex: 1;
+  min-width: 0;
+  max-width: 630px;
+  height: auto;
+}
+
 @media (max-width: 1024px) {
   .footer__inner {
     flex-direction: column;
