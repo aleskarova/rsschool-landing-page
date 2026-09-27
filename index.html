@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/layout.css">
     <script src="js/theme.js"></script>
     <script type="module" src="js/burger.js"></script>
+    <script type="module" src="js/slider.js"></script>
   </head>
   <body>
     <header class="header">
@@ -69,7 +70,7 @@
         <div class="container">
           <h2 class="section__title">Choose your <span class="accent">favorite</span> coffee</h2>
           <div class="slider">
-            <button class="icon-button slider__arrow" type="button" aria-label="Previous slide">
+            <button class="icon-button slider__arrow slider__arrow--prev" type="button" aria-label="Previous slide">
               <span class="icon icon--arrow-left" aria-hidden="true"></span>
             </button>
             <div class="slider__viewport">
@@ -106,11 +107,11 @@
               </li>
               </ul>
             </div>
-            <button class="icon-button slider__arrow" type="button" aria-label="Next slide">
+            <button class="icon-button slider__arrow slider__arrow--next" type="button" aria-label="Next slide">
               <span class="icon icon--arrow-right" aria-hidden="true"></span>
             </button>
           </div>
-          <div class="slider-controls slider__controls">
+          <div class="slider-controls slider__controls" aria-hidden="true">
             <span class="slider-control slider-control--active"></span>
             <span class="slider-control"></span>
             <span class="slider-control"></span>

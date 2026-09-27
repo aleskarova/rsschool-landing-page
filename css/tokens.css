@@ -58,6 +58,7 @@
   --slider-control-height: 4px;
 
   --transition: 0.3s ease-in-out;
+  --transition-slide: 0.6s ease-in-out;
 
   color-scheme: light;
 }

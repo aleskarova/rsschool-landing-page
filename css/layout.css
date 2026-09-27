@@ -167,10 +167,12 @@
   flex: 1;
   max-width: 1152px;
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 .slider__track {
   display: flex;
+  transition: transform var(--transition-slide);
 }
 
 .slide {
@@ -189,6 +191,8 @@
 
 .slide__image {
   width: 100%;
+  -webkit-user-drag: none;
+  user-select: none;
   aspect-ratio: 1;
   object-fit: cover;
 }
