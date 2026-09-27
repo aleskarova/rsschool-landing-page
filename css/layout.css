@@ -301,6 +301,11 @@
   gap: var(--space-40);
 }
 
+.menu__message {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
 .menu__more {
   display: none;
 }
