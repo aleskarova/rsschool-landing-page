@@ -70,7 +70,7 @@
           <ul class="menu__grid"></ul>
           <template id="card-template">
             <li class="menu__item">
-              <article class="card" tabindex="0">
+              <article class="card" tabindex="0" aria-haspopup="dialog">
                 <div class="card__image-box">
                   <img class="card__image" width="340" height="340" alt="">
                 </div>
@@ -135,5 +135,36 @@
         </div>
       </div>
     </footer>
+
+    <dialog class="modal" aria-labelledby="modal-title">
+      <div class="modal__content">
+        <div class="modal__image-box">
+          <img class="modal__image" width="340" height="340" alt="">
+        </div>
+        <div class="modal__description">
+          <div class="modal__info">
+            <h2 class="modal__title" id="modal-title"></h2>
+            <p class="modal__text"></p>
+          </div>
+          <div class="modal__option">
+            <p class="modal__option-title" id="modal-size-title">Size</p>
+            <div class="modal__tabs" role="group" aria-labelledby="modal-size-title" data-option="size"></div>
+          </div>
+          <div class="modal__option">
+            <p class="modal__option-title" id="modal-additives-title">Additives</p>
+            <div class="modal__tabs" role="group" aria-labelledby="modal-additives-title" data-option="additives"></div>
+          </div>
+          <p class="modal__total">
+            <span>Total:</span>
+            <span class="modal__price"></span>
+          </p>
+          <p class="modal__alert">
+            <span class="icon icon--info" aria-hidden="true"></span>
+            The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.
+          </p>
+          <button class="button button--secondary modal__close" type="button">Close</button>
+        </div>
+      </div>
+    </dialog>
   </body>
 </html>

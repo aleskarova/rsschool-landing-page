@@ -1,3 +1,5 @@
+import { openModal } from './modal.js';
+
 const PRODUCTS_URL = 'products.json';
 const ACTIVE_TAB_CLASS = 'tab--active';
 const EXPANDED_GRID_CLASS = 'menu__grid--expanded';
@@ -8,6 +10,8 @@ const tabs = [...document.querySelectorAll('.menu__tabs .tab')];
 const grid = document.querySelector('.menu__grid');
 const cardTemplate = document.getElementById('card-template');
 const loadMoreButton = document.querySelector('.menu__more');
+
+const cardProducts = new WeakMap();
 
 let products = [];
 
@@ -30,6 +34,7 @@ function createCard(product) {
   item.querySelector('.card__title').textContent = product.name;
   item.querySelector('.card__description').textContent = product.description;
   item.querySelector('.card__price').textContent = `$${product.price}`;
+  cardProducts.set(item.querySelector('.card'), product);
 
   return item;
 }
@@ -59,6 +64,14 @@ function setActiveTab(activeTab) {
   });
 
   renderCards(activeTab.dataset.category);
+}
+
+function openCardModal(event) {
+  const card = event.target.closest('.card');
+
+  if (card) {
+    openModal(cardProducts.get(card));
+  }
 }
 
 function showLoadError() {
@@ -91,6 +104,14 @@ async function initCatalog() {
   });
 
   loadMoreButton.addEventListener('click', showAllCards);
+
+  grid.addEventListener('click', openCardModal);
+  grid.addEventListener('keydown', (event) => {
+    if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('.card')) {
+      event.preventDefault();
+      openCardModal(event);
+    }
+  });
 
   setActiveTab(tabs[0]);
 }
