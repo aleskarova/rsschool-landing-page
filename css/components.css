@@ -31,6 +31,10 @@
   mask-image: url("../assets/icons/clock.svg");
 }
 
+.icon--close {
+  mask-image: url("../assets/icons/close.svg");
+}
+
 .icon--coffee-cup {
   mask-image: url("../assets/icons/coffee-cup.svg");
 }
@@ -251,9 +255,8 @@
 }
 
 .burger-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-grid;
+  place-items: center;
   width: var(--button-burger-size);
   height: var(--button-burger-size);
   color: var(--text-primary);
@@ -269,9 +272,33 @@
   background-color: var(--background-container);
 }
 
+.burger-button .icon {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--transition),
+    transform var(--transition);
+}
+
 .burger-button .icon--burger {
   width: 18px;
   height: 10px;
+}
+
+.burger-button .icon--close {
+  width: 13px;
+  height: 13px;
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+.burger-button[aria-expanded="true"] .icon--burger {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+.burger-button[aria-expanded="true"] .icon--close {
+  opacity: 1;
+  transform: rotate(0);
 }
 
 .theme-switch {

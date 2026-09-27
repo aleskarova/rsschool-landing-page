@@ -45,6 +45,7 @@
   --container-max-width: 1440px;
   --container-padding: 40px;
   --header-height: 60px;
+  --header-offset: calc(var(--space-20) + var(--header-height));
 
   --button-width: 200px;
   --button-icon-size: 60px;
@@ -52,6 +53,7 @@
   --icon-size-small: 20px;
   --icon-size-medium: 24px;
   --icon-size-large: 36px;
+  --icon-size-xlarge: 40px;
   --slider-control-width: 40px;
   --slider-control-height: 4px;
 
