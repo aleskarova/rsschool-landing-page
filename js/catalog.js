@@ -1,0 +1,119 @@
+import { openModal } from './modal.js';
+
+const PRODUCTS_URL = 'products.json';
+const ACTIVE_TAB_CLASS = 'tab--active';
+const EXPANDED_GRID_CLASS = 'menu__grid--expanded';
+const INITIAL_VISIBLE_CARDS = 4;
+
+const tabsContainer = document.querySelector('.menu__tabs');
+const tabs = [...document.querySelectorAll('.menu__tabs .tab')];
+const grid = document.querySelector('.menu__grid');
+const cardTemplate = document.getElementById('card-template');
+const loadMoreButton = document.querySelector('.menu__more');
+
+const cardProducts = new WeakMap();
+
+let products = [];
+
+async function loadProducts() {
+  const response = await fetch(PRODUCTS_URL);
+
+  if (!response.ok) {
+    throw new Error(`Failed to load products: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+function createCard(product) {
+  const item = cardTemplate.content.firstElementChild.cloneNode(true);
+  const image = item.querySelector('.card__image');
+
+  image.src = product.image;
+  image.alt = product.name;
+  item.querySelector('.card__title').textContent = product.name;
+  item.querySelector('.card__description').textContent = product.description;
+  item.querySelector('.card__price').textContent = `$${product.price}`;
+  cardProducts.set(item.querySelector('.card'), product);
+
+  return item;
+}
+
+function renderCards(category) {
+  const cards = products
+    .filter((product) => product.category === category)
+    .map(createCard);
+
+  grid.replaceChildren(...cards);
+  grid.classList.remove(EXPANDED_GRID_CLASS);
+  loadMoreButton.hidden = cards.length <= INITIAL_VISIBLE_CARDS;
+}
+
+function showAllCards() {
+  grid.classList.add(EXPANDED_GRID_CLASS);
+  loadMoreButton.hidden = true;
+  grid.children[INITIAL_VISIBLE_CARDS]?.querySelector('.card')?.focus();
+}
+
+function setActiveTab(activeTab) {
+  tabs.forEach((tab) => {
+    const isActive = tab === activeTab;
+
+    tab.classList.toggle(ACTIVE_TAB_CLASS, isActive);
+    tab.setAttribute('aria-pressed', String(isActive));
+  });
+
+  renderCards(activeTab.dataset.category);
+}
+
+function openCardModal(event) {
+  const card = event.target.closest('.card');
+
+  if (card) {
+    openModal(cardProducts.get(card));
+  }
+}
+
+function showLoadError() {
+  const message = document.createElement('li');
+
+  message.className = 'menu__message';
+  message.textContent = 'Sorry, the menu is unavailable right now. Please try again later.';
+  grid.replaceChildren(message);
+}
+
+async function initCatalog() {
+  if (!tabsContainer || !grid || !cardTemplate || !loadMoreButton || tabs.length === 0) {
+    return;
+  }
+
+  try {
+    products = await loadProducts();
+  } catch (error) {
+    console.error(error);
+    showLoadError();
+    return;
+  }
+
+  tabsContainer.addEventListener('click', (event) => {
+    const tab = event.target.closest('.tab');
+
+    if (tab && !tab.classList.contains(ACTIVE_TAB_CLASS)) {
+      setActiveTab(tab);
+    }
+  });
+
+  loadMoreButton.addEventListener('click', showAllCards);
+
+  grid.addEventListener('click', openCardModal);
+  grid.addEventListener('keydown', (event) => {
+    if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('.card')) {
+      event.preventDefault();
+      openCardModal(event);
+    }
+  });
+
+  setActiveTab(tabs[0]);
+}
+
+initCatalog();

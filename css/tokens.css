@@ -6,9 +6,12 @@
   --background-page: #e1d4c9;
   --background-container: #665f55;
   --background-overlay: rgb(64 63 61 / 80%);
+  --background-modal: var(--background-page);
+  --background-modal-control: var(--background-container);
 
   --border-primary: #c1b6ad;
   --border-inverse: #665f55;
+  --border-modal-button: var(--border-inverse);
 
   --font-family: "Inter", sans-serif;
   --font-weight-regular: 400;
@@ -45,17 +48,23 @@
   --container-max-width: 1440px;
   --container-padding: 40px;
   --header-height: 60px;
+  --header-offset: calc(var(--space-20) + var(--header-height));
 
   --button-width: 200px;
   --button-icon-size: 60px;
   --button-burger-size: 44px;
+  --icon-size-xsmall: 16px;
   --icon-size-small: 20px;
   --icon-size-medium: 24px;
   --icon-size-large: 36px;
+  --icon-size-xlarge: 40px;
+  --modal-width: 800px;
+  --modal-image-size: 310px;
   --slider-control-width: 40px;
   --slider-control-height: 4px;
 
   --transition: 0.3s ease-in-out;
+  --transition-slide: 0.6s ease-in-out;
 
   color-scheme: light;
 }
@@ -70,9 +79,12 @@
   --background-page: #292826;
   --background-container: #403f3d;
   --background-overlay: rgb(41 40 38 / 80%);
+  --background-modal: #403f3d;
+  --background-modal-control: #292826;
 
   --border-primary: #665f55;
   --border-inverse: #c1b6ad;
+  --border-modal-button: var(--border-primary);
 
   color-scheme: dark;
 }

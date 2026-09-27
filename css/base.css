@@ -58,6 +58,10 @@ button {
   cursor: pointer;
 }
 
+body.is-scroll-locked {
+  overflow: hidden;
+}
+
 .container {
   width: 100%;
   max-width: var(--container-max-width);

@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/layout.css">
     <script src="js/theme.js"></script>
+    <script type="module" src="js/burger.js"></script>
+    <script type="module" src="js/slider.js"></script>
   </head>
   <body>
     <header class="header">
@@ -25,7 +27,7 @@
           <img class="logo__image logo__image--light" src="assets/icons/logo.svg" width="100" height="60" alt="Resource Coffee House">
           <img class="logo__image logo__image--dark" src="assets/icons/logo-dark.svg" width="100" height="60" alt="Resource Coffee House">
         </a>
-        <nav class="nav" aria-label="Main navigation">
+        <nav class="nav" id="nav" aria-label="Main navigation">
           <ul class="nav__list">
             <li><a class="link" href="#favorite-coffee">Favorite coffee</a></li>
             <li><a class="link" href="#about">About</a></li>
@@ -41,8 +43,9 @@
           <span class="theme-switch__option theme-switch__option--light"><span class="icon icon--sun" aria-hidden="true"></span></span>
           <span class="theme-switch__option theme-switch__option--dark"><span class="icon icon--moon" aria-hidden="true"></span></span>
         </label>
-        <button class="burger-button header__burger" type="button" aria-label="Open menu">
+        <button class="burger-button header__burger" type="button" aria-label="Open menu" aria-controls="nav" aria-expanded="false">
           <span class="icon icon--burger" aria-hidden="true"></span>
+          <span class="icon icon--close" aria-hidden="true"></span>
         </button>
       </div>
     </header>
@@ -67,7 +70,7 @@
         <div class="container">
           <h2 class="section__title">Choose your <span class="accent">favorite</span> coffee</h2>
           <div class="slider">
-            <button class="icon-button slider__arrow" type="button" aria-label="Previous slide">
+            <button class="icon-button slider__arrow slider__arrow--prev" type="button" aria-label="Previous slide">
               <span class="icon icon--arrow-left" aria-hidden="true"></span>
             </button>
             <div class="slider__viewport">
@@ -104,14 +107,14 @@
               </li>
               </ul>
             </div>
-            <button class="icon-button slider__arrow" type="button" aria-label="Next slide">
+            <button class="icon-button slider__arrow slider__arrow--next" type="button" aria-label="Next slide">
               <span class="icon icon--arrow-right" aria-hidden="true"></span>
             </button>
           </div>
           <div class="slider-controls slider__controls">
-            <span class="slider-control slider-control--active"></span>
-            <span class="slider-control"></span>
-            <span class="slider-control"></span>
+            <button class="slider-control slider-control--active" type="button" aria-label="Slide 1" aria-current="true"></button>
+            <button class="slider-control" type="button" aria-label="Slide 2"></button>
+            <button class="slider-control" type="button" aria-label="Slide 3"></button>
           </div>
         </div>
       </section>
