@@ -21,12 +21,24 @@ function initSlider(root) {
     });
 
     controls.forEach((control, i) => {
-      control.classList.toggle(ACTIVE_CONTROL_CLASS, i === currentIndex);
+      const isActive = i === currentIndex;
+
+      control.classList.toggle(ACTIVE_CONTROL_CLASS, isActive);
+
+      if (isActive) {
+        control.setAttribute('aria-current', 'true');
+      } else {
+        control.removeAttribute('aria-current');
+      }
     });
   }
 
   prevButton.addEventListener('click', () => goTo(currentIndex - 1));
   nextButton.addEventListener('click', () => goTo(currentIndex + 1));
+
+  controls.forEach((control, i) => {
+    control.addEventListener('click', () => goTo(i));
+  });
 
   viewport.addEventListener('pointerdown', (event) => {
     if (event.pointerType !== 'mouse') {
