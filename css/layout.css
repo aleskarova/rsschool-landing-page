@@ -409,11 +409,11 @@
     justify-content: center;
   }
 
-  .menu__item:nth-child(n + 5) {
+  .menu__grid:not(.menu__grid--expanded) .menu__item:nth-child(n + 5) {
     display: none;
   }
 
-  .menu__more {
+  .menu__more:not([hidden]) {
     display: flex;
     margin: var(--space-40) auto 0;
   }

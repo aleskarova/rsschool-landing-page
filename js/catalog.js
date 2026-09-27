@@ -1,10 +1,13 @@
 const PRODUCTS_URL = 'products.json';
 const ACTIVE_TAB_CLASS = 'tab--active';
+const EXPANDED_GRID_CLASS = 'menu__grid--expanded';
+const INITIAL_VISIBLE_CARDS = 4;
 
 const tabsContainer = document.querySelector('.menu__tabs');
 const tabs = [...document.querySelectorAll('.menu__tabs .tab')];
 const grid = document.querySelector('.menu__grid');
 const cardTemplate = document.getElementById('card-template');
+const loadMoreButton = document.querySelector('.menu__more');
 
 let products = [];
 
@@ -37,6 +40,14 @@ function renderCards(category) {
     .map(createCard);
 
   grid.replaceChildren(...cards);
+  grid.classList.remove(EXPANDED_GRID_CLASS);
+  loadMoreButton.hidden = cards.length <= INITIAL_VISIBLE_CARDS;
+}
+
+function showAllCards() {
+  grid.classList.add(EXPANDED_GRID_CLASS);
+  loadMoreButton.hidden = true;
+  grid.children[INITIAL_VISIBLE_CARDS]?.querySelector('.card')?.focus();
 }
 
 function setActiveTab(activeTab) {
@@ -59,7 +70,7 @@ function showLoadError() {
 }
 
 async function initCatalog() {
-  if (!tabsContainer || !grid || !cardTemplate || tabs.length === 0) {
+  if (!tabsContainer || !grid || !cardTemplate || !loadMoreButton || tabs.length === 0) {
     return;
   }
 
@@ -78,6 +89,8 @@ async function initCatalog() {
       setActiveTab(tab);
     }
   });
+
+  loadMoreButton.addEventListener('click', showAllCards);
 
   setActiveTab(tabs[0]);
 }
