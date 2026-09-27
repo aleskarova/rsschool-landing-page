@@ -542,11 +542,11 @@
 .modal[open],
 .modal[open]::backdrop {
   opacity: 1;
+  animation: fade-in var(--transition);
 }
 
-@starting-style {
-  .modal[open],
-  .modal[open]::backdrop {
+@keyframes fade-in {
+  from {
     opacity: 0;
   }
 }

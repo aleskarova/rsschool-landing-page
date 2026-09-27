@@ -3,7 +3,7 @@ import { lockScroll, unlockScroll } from './utils/scroll-lock.js';
 const ACTIVE_TAB_CLASS = 'tab--active';
 
 const modal = document.querySelector('.modal');
-const image = modal?.querySelector('.modal__image');
+const imageBox = modal?.querySelector('.modal__image-box');
 const title = modal?.querySelector('.modal__title');
 const text = modal?.querySelector('.modal__text');
 const sizeTabs = modal?.querySelector('[data-option="size"]');
@@ -45,6 +45,20 @@ function updatePrice() {
   price.textContent = formatPrice(getTotalCents());
 }
 
+function getImage() {
+  let image = imageBox.querySelector('.modal__image');
+
+  if (!image) {
+    image = document.createElement('img');
+    image.className = 'modal__image';
+    image.width = 340;
+    image.height = 340;
+    imageBox.append(image);
+  }
+
+  return image;
+}
+
 function createTab(iconText, label, isActive) {
   const tab = document.createElement('button');
   const icon = document.createElement('span');
@@ -66,6 +80,8 @@ function renderProduct(product) {
   selection.product = product;
   selection.sizeKey = sizes[0][0];
   selection.additives.clear();
+
+  const image = getImage();
 
   image.src = product.image;
   image.alt = product.name;
