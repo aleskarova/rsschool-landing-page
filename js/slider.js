@@ -1,6 +1,15 @@
 const SWIPE_THRESHOLD = 50;
 const ACTIVE_CONTROL_CLASS = 'slider-control--active';
 
+function createClone(slide) {
+  const clone = slide.cloneNode(true);
+
+  clone.setAttribute('aria-hidden', 'true');
+  clone.inert = true;
+
+  return clone;
+}
+
 function initSlider(root) {
   const track = root.querySelector('.slider__track');
   const viewport = root.querySelector('.slider__viewport');
@@ -9,19 +18,48 @@ function initSlider(root) {
   const prevButton = root.querySelector('.slider__arrow--prev');
   const nextButton = root.querySelector('.slider__arrow--next');
 
-  let currentIndex = 0;
+  const firstClone = createClone(slides[0]);
+  const lastClone = createClone(slides[slides.length - 1]);
+
+  track.prepend(lastClone);
+  track.append(firstClone);
+
+  // Track positions: 0 — clone of the last slide, 1..n — real slides, n + 1 — clone of the first slide
+  let position = 1;
   let swipeStartX = null;
 
-  function goTo(index) {
-    currentIndex = (index + slides.length) % slides.length;
-    track.style.transform = `translateX(${-currentIndex * 100}%)`;
+  function getActiveIndex() {
+    return (position - 1 + slides.length) % slides.length;
+  }
+
+  function setPosition(nextPosition, animate) {
+    position = nextPosition;
+    track.style.transition = animate ? '' : 'none';
+    track.style.transform = `translateX(${-position * 100}%)`;
+
+    if (!animate) {
+      track.getBoundingClientRect();
+      track.style.transition = '';
+    }
+  }
+
+  function jumpFromClone() {
+    if (position === 0) {
+      setPosition(slides.length, false);
+    } else if (position === slides.length + 1) {
+      setPosition(1, false);
+    }
+  }
+
+  function updateState() {
+    const activeIndex = getActiveIndex();
 
     slides.forEach((slide, i) => {
-      slide.setAttribute('aria-hidden', String(i !== currentIndex));
+      slide.setAttribute('aria-hidden', String(i !== activeIndex));
     });
 
     controls.forEach((control, i) => {
-      const isActive = i === currentIndex;
+      const isActive = i === activeIndex;
 
       control.classList.toggle(ACTIVE_CONTROL_CLASS, isActive);
 
@@ -33,8 +71,26 @@ function initSlider(root) {
     });
   }
 
-  prevButton.addEventListener('click', () => goTo(currentIndex - 1));
-  nextButton.addEventListener('click', () => goTo(currentIndex + 1));
+  function move(step) {
+    jumpFromClone();
+    setPosition(position + step, true);
+    updateState();
+  }
+
+  function goTo(index) {
+    jumpFromClone();
+    setPosition(index + 1, true);
+    updateState();
+  }
+
+  track.addEventListener('transitionend', (event) => {
+    if (event.target === track && event.propertyName === 'transform') {
+      jumpFromClone();
+    }
+  });
+
+  prevButton.addEventListener('click', () => move(-1));
+  nextButton.addEventListener('click', () => move(1));
 
   controls.forEach((control, i) => {
     control.addEventListener('click', () => goTo(i));
@@ -55,7 +111,7 @@ function initSlider(root) {
     swipeStartX = null;
 
     if (Math.abs(deltaX) >= SWIPE_THRESHOLD) {
-      goTo(deltaX < 0 ? currentIndex + 1 : currentIndex - 1);
+      move(deltaX < 0 ? 1 : -1);
     }
   });
 
@@ -63,7 +119,8 @@ function initSlider(root) {
     swipeStartX = null;
   });
 
-  goTo(0);
+  setPosition(position, false);
+  updateState();
 }
 
 document.querySelectorAll('.slider').forEach(initSlider);
