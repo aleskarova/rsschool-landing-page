@@ -11,14 +11,47 @@ const additiveTabs = modal?.querySelector('[data-option="additives"]');
 const price = modal?.querySelector('.modal__price');
 const closeButton = modal?.querySelector('.modal__close');
 
+const selection = {
+  product: null,
+  sizeKey: null,
+  additives: new Set(),
+};
+
+function toCents(value) {
+  return Math.round(Number.parseFloat(value) * 100);
+}
+
+function formatPrice(cents) {
+  return `$${(cents / 100).toFixed(2)}`;
+}
+
+function getTotalCents() {
+  const { product, sizeKey, additives } = selection;
+  const sizeCents = toCents(product.sizes[sizeKey]['add-price']);
+  const additivesCents = [...additives].reduce(
+    (sum, index) => sum + toCents(product.additives[index]['add-price']),
+    0,
+  );
+
+  return toCents(product.price) + sizeCents + additivesCents;
+}
+
+function setTabActive(tab, isActive) {
+  tab.classList.toggle(ACTIVE_TAB_CLASS, isActive);
+  tab.setAttribute('aria-pressed', String(isActive));
+}
+
+function updatePrice() {
+  price.textContent = formatPrice(getTotalCents());
+}
+
 function createTab(iconText, label, isActive) {
   const tab = document.createElement('button');
   const icon = document.createElement('span');
 
   tab.type = 'button';
   tab.className = 'tab';
-  tab.classList.toggle(ACTIVE_TAB_CLASS, isActive);
-  tab.setAttribute('aria-pressed', String(isActive));
+  setTabActive(tab, isActive);
   icon.className = 'tab__icon';
   icon.setAttribute('aria-hidden', 'true');
   icon.textContent = iconText;
@@ -30,19 +63,69 @@ function createTab(iconText, label, isActive) {
 function renderProduct(product) {
   const sizes = Object.entries(product.sizes);
 
+  selection.product = product;
+  selection.sizeKey = sizes[0][0];
+  selection.additives.clear();
+
   image.src = product.image;
   image.alt = product.name;
   title.textContent = product.name;
   text.textContent = product.description;
 
   sizeTabs.replaceChildren(
-    ...sizes.map(([key, { size }], i) => createTab(key.toUpperCase(), size, i === 0)),
+    ...sizes.map(([key, { size }]) => {
+      const tab = createTab(key.toUpperCase(), size, key === selection.sizeKey);
+
+      tab.dataset.size = key;
+
+      return tab;
+    }),
   );
   additiveTabs.replaceChildren(
-    ...product.additives.map(({ name }, i) => createTab(String(i + 1), name, false)),
+    ...product.additives.map(({ name }, index) => {
+      const tab = createTab(String(index + 1), name, false);
+
+      tab.dataset.additive = String(index);
+
+      return tab;
+    }),
   );
 
-  price.textContent = `$${product.price}`;
+  updatePrice();
+}
+
+function selectSize(event) {
+  const tab = event.target.closest('[data-size]');
+
+  if (!tab || tab.dataset.size === selection.sizeKey) {
+    return;
+  }
+
+  selection.sizeKey = tab.dataset.size;
+  sizeTabs.querySelectorAll('[data-size]').forEach((sizeTab) => {
+    setTabActive(sizeTab, sizeTab === tab);
+  });
+  updatePrice();
+}
+
+function toggleAdditive(event) {
+  const tab = event.target.closest('[data-additive]');
+
+  if (!tab) {
+    return;
+  }
+
+  const index = Number(tab.dataset.additive);
+  const isActive = !selection.additives.has(index);
+
+  if (isActive) {
+    selection.additives.add(index);
+  } else {
+    selection.additives.delete(index);
+  }
+
+  setTabActive(tab, isActive);
+  updatePrice();
 }
 
 export function openModal(product) {
@@ -60,6 +143,8 @@ function closeModal() {
 }
 
 if (modal) {
+  sizeTabs.addEventListener('click', selectSize);
+  additiveTabs.addEventListener('click', toggleAdditive);
   closeButton.addEventListener('click', closeModal);
 
   modal.addEventListener('click', (event) => {
