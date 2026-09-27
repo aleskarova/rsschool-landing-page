@@ -320,6 +320,16 @@
 }
 
 @media (max-width: 900px) {
+  .header__inner {
+    column-gap: var(--space-12);
+  }
+
+  .nav__list {
+    gap: var(--space-12);
+  }
+}
+
+@media (max-width: 768px) {
   .nav {
     display: none;
   }
@@ -327,9 +337,7 @@
   .header__burger {
     display: inline-flex;
   }
-}
 
-@media (max-width: 768px) {
   .hero__inner {
     padding: var(--space-100) var(--space-60);
   }
@@ -358,10 +366,6 @@
 }
 
 @media (max-width: 600px) {
-  .header__inner {
-    column-gap: var(--space-12);
-  }
-
   .footer__inner {
     gap: var(--space-40);
     padding: var(--space-60) var(--space-16);
